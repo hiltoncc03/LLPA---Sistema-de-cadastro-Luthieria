@@ -3,12 +3,35 @@
 #define ESTOQUEMAX 50
 #include <stdbool.h>
 
+void menu(inst ins){
+    for(i=0;i<ESTOQUEMAX && ins[i].mod;){
+                    system("cls");
+                    printf("-------INSTRUMENTO %d-------\n", i+1);
+                    printf("\n-Dono: %s", ins[i].dono);
+                    printf("\n-Servico: %s", ins[i].serv);
+                    printf("\n-Instrumento: %s", ins[i].nome);
+                    printf("\n-Marca: %s", ins[i].marca);
+                    printf("\n-Modelo: %s", ins[i].modelo);
+                    printf("\n-Estado: %s", ins[i].estado);
+                    printf("\n-Numero de Serie: %d", ins[i].num);
+                    printf("\n-Data de entrada: %d", ins[i].entrada);
+                    printf("\n-Data de saida: %d", ins[i].saida);
+                    printf("\n-Orcamento total: R$ %.2f", ins[i].orc);
+                    printf("\n\n<---- 1 ||| 2 ---->\n\n");
+                    scanf("%d", &menu2);
+    }
+}
+
 int main()
 {
-    char inst_nome[ESTOQUEMAX][50], inst_marca[ESTOQUEMAX][50], inst_dono[ESTOQUEMAX][50], inst_serv[ESTOQUEMAX][50], inst_modelo[ESTOQUEMAX][50], inst_estado[ESTOQUEMAX][50];
-    int i, menu,menu2,inst_num[ESTOQUEMAX], inst_entrada[ESTOQUEMAX], inst_saida[ESTOQUEMAX];
-    float inst_orc[ESTOQUEMAX];
-    bool inst_mod[ESTOQUEMAX];
+    typedef struct{
+        char nome[50], marca[50], dono[50], serv[50], modelo[50], estado[50];
+        int num, entrada, saida;
+        float orc;
+        bool mod;
+    }inst;
+    inst ins[ESTOQUEMAX];
+    int i, menu,menu2;
     do{
         do{
             system("cls");
@@ -19,31 +42,31 @@ int main()
             case 1:
                 system("cls");
                 for(i=0;i<ESTOQUEMAX;i++){
-                    if(inst_mod[i]==false){
+                    if(ins[i].mod==false){
                         printf("-------CADASTRO DE INSTRUMENTO %d-------", i+1);
                         printf("\n-Digite o nome do dono do instrumento: ");
-                        scanf("%s", inst_dono[i]);
+                        scanf("%s", ins[i].dono);
                         printf("\n-Digite o servico que sera oferecido: ");
-                        scanf("%s", inst_serv[i]);
+                        scanf("%s", ins[i].serv);
                         printf("\n-Digite o nome do instrumento (ex: Guitarra, cavaquinho, contrabaixo): ");
-                        scanf("%s", inst_nome[i]);
+                        scanf("%s", ins[i].nome);
                         printf("\n-Digite a marca do instrumento: ");
-                        scanf("%s", inst_marca[i]);
+                        scanf("%s", ins[i].marca);
                         printf("\n-Digite o modelo do instrumento: ");
-                        scanf("%s", inst_modelo[i]);
+                        scanf("%s", ins[i].modelo);
                         printf("\n-Digite o estado do servico: ");
-                        scanf("%s", inst_estado[i]);
+                        scanf("%s", ins[i].estado);
                         printf("\n-Digite o numero de serie do instrumento: ");
-                        scanf("%d",&inst_num[i]);
+                        scanf("%d",&ins[i].num);
                         printf("\n-Digite a data de entrada na oficina: ");
-                        scanf("%d",&inst_entrada[i]);
+                        scanf("%d",&ins[i].entrada);
                         printf("\n-Digite a data de saida da oficina: ");
-                        scanf("%d",&inst_saida[i]);
+                        scanf("%d",&ins[i].saida);
                         printf("\n-Digite o valor orcado para o servico: ");
-                        scanf("%f",&inst_orc[i]);
-                        inst_mod[i] = true;
+                        scanf("%f",&ins[i].orc);
+                        ins[i].mod = true;
                         system("cls");
-                        if(inst_mod[i]==true){
+                        if(ins[i].mod==true){
                             printf("-------INSTRUMENTO CADASTRADO-------\n\n");
                         }
                         printf("-Digite:\n 0 para voltar ao menu\n 1 para cadastrar outro instrumento\n ");
@@ -55,20 +78,20 @@ int main()
                 }
                 break;
             case 2:
-                for(i=0;i<ESTOQUEMAX && inst_mod[i];){
+                for(i=0;i<ESTOQUEMAX && ins[i].mod;){
                     system("cls");
                     printf("-------INSTRUMENTO %d-------\n", i+1);
-                    printf("\n-Dono: %s", inst_dono[i]);
-                    printf("\n-Servico: %s", inst_serv[i]);
-                    printf("\n-Instrumento: %s", inst_nome[i]);
-                    printf("\n-Marca: %s", inst_marca[i]);
-                    printf("\n-Modelo: %s", inst_modelo[i]);
-                    printf("\n-Estado: %s", inst_estado[i]);
-                    printf("\n-Numero de Serie: %d", inst_num[i]);
-                    printf("\n-Data de entrada: %d", inst_entrada[i]);
-                    printf("\n-Data de saida: %d", inst_saida[i]);
-                    printf("\n-Orcamento total: R$ %.2f", inst_orc[i]);
-                    printf("\n\n<---- 1 ||| 2 ---->\n\n");
+                    printf("\n-Dono: %s", ins[i].dono);
+                    printf("\n-Servico: %s", ins[i].serv);
+                    printf("\n-Instrumento: %s", ins[i].nome);
+                    printf("\n-Marca: %s", ins[i].marca);
+                    printf("\n-Modelo: %s", ins[i].modelo);
+                    printf("\n-Estado: %s", ins[i].estado);
+                    printf("\n-Numero de Serie: %d", ins[i].num);
+                    printf("\n-Data de entrada: %d", ins[i].entrada);
+                    printf("\n-Data de saida: %d", ins[i].saida);
+                    printf("\n-Orcamento total: R$ %.2f", ins[i].orc);
+                    printf("\n\n<---- 1 ||| 2 ---->\n\n");*/
                     scanf("%d", &menu2);
                     switch(menu2){
                         case 1:
@@ -89,20 +112,17 @@ int main()
                             }
                         default:
                             printf("\nDIGITE UM VALOR VÁLIDO\n");
-                        }
-                }
-            printf("\n\n\n-Digite:\n-0 para voltar ao menu\n");
-                scanf("%d", &menu2);
-                if(menu2==0){
-                    i=ESTOQUEMAX;
-                }
-            break;
-            case 0:
-                return 0;
+                            printf("\n\n\n-Digite:\n-0 para voltar ao menu\n");
+                            scanf("%d", &menu2);
+                            if(menu2==0){
+                                i=ESTOQUEMAX;
+                            }
+                            break;
+                        case 0:
+                    return 0;
             default:
                 printf("\nDIGITE UMA OPCAO VALIDA\n\n");
             break;
-        }
     }while(menu!=0);
     return 0;
 }
